@@ -1,4 +1,6 @@
 import pandas as pd
+import hashlib
+import time
 
 # Загрузка Excel-файла
 df = pd.read_excel("Ваш_файл_с_данными.xlsx")
@@ -42,7 +44,7 @@ df["Объединённые данные"] = df.apply(combine_row, axis=1)
 # Генерация безопасного имени с хэшем (на основе времени)
 timestamp = str(time.time()).encode("utf-8")
 hash_suffix = hashlib.md5(timestamp).hexdigest()[:8]
-filename = f"coldbox_html_tables_{hash_suffix}.xlsx"
+filename = f"обработанный_файл_{hash_suffix}.xlsx"
 
 # Сохранение результата
-df[["Объединённые данные"]].to_excel("обработанный_файл.xlsx", index=False)
+df[["Объединённые данные"]].to_excel(filename, index=False)
